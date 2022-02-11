@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Twitch Auth Redirect</title>
+    <script>src="https://unpkg.com/axios/dist/axios.min.js"</script>
+    <script>
+        if (window.location.hash) {
+            var fullHash = window.location.hash.substring(1);
+
+            let twitchdataurl = fullHash.split("&").map(x => x.split('=')[1]);
+            let data = {
+                accessToken: twitchdataurl[0],
+                scope: twitchdataurl[1],
+                state: twitchdataurl[2],
+                tokentype: twitchdataurl [3]
+            };
+            axios.post('/HTML/ClientAuth', data)
+                .then(function (response){
+                    console.log(response);
+                    })
+                .catch (function(error){
+                    console.log(error);
+                    });
+        }
+    </script>
+</head>
+<body>
+    You may now close this browser!
+</body>
+</html>
